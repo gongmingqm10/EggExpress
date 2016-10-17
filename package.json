@@ -1,0 +1,23 @@
+{
+  "name": "EggExpress",
+  "version": "1.0.0",
+  "description": "Express learning with EggHead courses",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gongmingqm10/EggExpress.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gongmingqm10/EggExpress/issues"
+  },
+  "homepage": "https://github.com/gongmingqm10/EggExpress#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
