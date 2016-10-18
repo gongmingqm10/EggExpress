@@ -33,10 +33,15 @@ app.get('/users/big*', function(req, res, next) {
 
 app.get('/users/:username', function(req, res) {
   var username = req.params.username
-  res.render('user', {username: username})
+  var user = getUser(username)
+  res.render('user', {user: user, address: user.location})
 })
 
 
 var server = app.listen(3000, function() {
   console.log('Server running at http://localhost:' + server.address().port)
 })
+
+function getUser(username) {
+  return _.find(users, {username: username})
+}

@@ -4,20 +4,111 @@
   <meta charset="utf-8">
   <title>User Profile</title>
   <style>
-    div {
-      display: flex;
-      align-items: center;
-      padding: 1em;
-      font-size: 1.2em;
-    }
-
     div a {
       padding-left: 0.5em;
     }
+
+    .edit {
+      display: none;
+    }
+
+    .main {
+      display: flex;
+      margin-top: 1em;
+    }
+
+    .info {
+        margin-left: 2em;
+    }
+
+    .info > h1 {
+      margin-top: 0;
+    }
+
+    .item {
+      margin-bottom: 0.5em;
+    }
+
+    .item > label {
+      margin-right: 0.5em;
+      margin-bottom: 0.2em;
+      width: 4em;
+      display: inline-block;
+    }
   </style>
+
+  <script src="http://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+  <script>
+    function edit() {
+      $('.view').hide();
+      $('.edit').show();
+    }
+    function cancel() {
+      $('.view').show();
+      $('.edit').hide();
+    }
+    function save() {
+      $.ajax('/users/{{user.username}}', {
+        method: 'PUT',
+        data: {
+          street: $('#street').val(),
+          city: $('#city').val(),
+          state: $('#state').val(),
+          zip: $('#zip').val()
+        }
+      })
+    }
+  </script>
 </head>
 <body>
-  <h1>{{username}}</h1>
-  <img src="/profilepics/{{username}}_lg.jpg" alt="">
+  <div class="nav">
+    <a href="/">Back to users list </a>
+  </div>
+  <div class="main">
+    <div class="pic">
+      <img src="/profilepics/{{user.username}}_med.jpg">
+      <p>
+        <a href="javascript:void(0);" onclick="edit()">Edit</a>
+        <a href="javascript:void(0);" onclick="del()">Delete</a>
+      </p>
+    </div>
+
+    <div class="info">
+      <h1>{{user.name.full}}</h1>
+
+      <div class="item">
+        <label>Street</label>
+        <span class="view">{{address.street}}</span>
+        <input class="edit" id="street" type="text" value="{{address.street}}">
+      </div>
+
+      <div class="item">
+        <label>City</label>
+        <span class="view">{{address.city}}</span>
+        <input class="edit" id="city" type="text" value="{{address.city}}">
+      </div>
+
+      <div class="item">
+        <label>State</label>
+        <span class="view">{{address.state}}</span>
+        <input class="edit" id="state" type="text" value="{{address.state}}">
+      </div>
+
+      <div class="item">
+        <label>Zip</label>
+        <span class="view">{{address.zip}}</span>
+        <input class="edit" id="zip" type="text" value="{{address.zip}}">
+      </div>
+
+      <div>
+        <input type="submit" value="Save" onclick="save()">
+        <input type="submit" value="Cancel" onclick="cancel()">
+      </div>
+    </div>
+  </div>
+
+
 </body>
 </html>
