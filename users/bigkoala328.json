@@ -3,12 +3,13 @@
   "name": {
     "title": "mr",
     "first": "edwin",
-    "last": "morales"
+    "last": "morales",
+    "full": "Edwin Morales"
   },
   "location": {
-    "street": "3353 brown terrace",
-    "city": "red bluff",
-    "state": "new mexico",
+    "street": "3353 Brown Terrace",
+    "city": "Red Bluffle",
+    "state": "New Mexico",
     "zip": "74549"
   },
   "email": "edwin.morales41@example.com",

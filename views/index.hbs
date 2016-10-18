@@ -3,12 +3,23 @@
 <head>
   <meta charset="utf-8">
   <title>User Index</title>
+  <style>
+    li.user {
+      margin-bottom: 1em;
+      display: flex;
+      align-items: center;
+    }
+
+    li.user > a {
+      margin-left: 1em;
+    }
+  </style>
 </head>
 <body>
   <h1>Handlebars</h1>
   <ul>
     {{#each users as |user|}}
-    <li>
+    <li class="user">
       <img src="/profilepics/{{user.username}}_sm.jpg" alt="">
       <a href="/users/{{user.username}}">{{user.name.full}}</a>
     </li>
