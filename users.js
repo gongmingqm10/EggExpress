@@ -1,5 +1,8 @@
 var helpers = require('./helpers')
 var express = require('express')
+var JSONStream = require('JSONStream')
+var fs = require('fs')
+
 var router = express.Router()
 
 router.all('/:username', function(req, res, next) {
@@ -28,6 +31,18 @@ router.put('/:username', function(req, res) {
 router.delete('/:username', function(req, res) {
   helper.deleteUser(req.params.username)
   res.sendStatus(200)
+})
+
+router.get('/by/:gender', function(req, res) {
+  var gender = req.params.gender
+  var readable = fs.createReadStream('users.json')
+
+  readable
+    .pipe(JSONStream.parse('*', function(user) {
+      if (user.gender === gender) return user
+    }))
+    .pipe(JSONStream.stringify())
+    .pipe(res)
 })
 
 module.exports = router;

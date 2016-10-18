@@ -1,6 +1,8 @@
+var fs = require('fs')
 var express = require('express')
 var engines = require('consolidate')
 var bodyParser = require('body-parser')
+
 var helpers = require('./helpers')
 var userRouter = require('./users')
 
@@ -23,8 +25,8 @@ app.get('/', function(req, res) {
 
 app.get('/data/:username', function(req, res) {
   var username = req.params.username
-  var user = helpers.getUser(username)
-  res.json(user)
+  var readable = fs.createReadStream('./users/' + username + '.json')
+  readable.pipe(res)
 })
 
 app.get('/not_found/:username', function(req, res) {
