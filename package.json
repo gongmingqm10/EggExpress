@@ -19,7 +19,10 @@
   },
   "homepage": "https://github.com/gongmingqm10/EggExpress#readme",
   "dependencies": {
+    "consolidate": "^0.14.1",
     "express": "^4.14.0",
+    "handlebars": "^4.0.5",
+    "jade": "^1.11.0",
     "lodash": "^4.16.4"
   },
   "devDependencies": {

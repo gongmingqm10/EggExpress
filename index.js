@@ -1,6 +1,8 @@
 var fs = require('fs')
 var _ = require('lodash')
 var express = require('express')
+var engines = require('consolidate')
+
 var app = express()
 var users = []
 
@@ -10,18 +12,25 @@ fs.readFile('users.json', {encoding: 'utf8'}, function(err, data) {
     user.name.full = _.startCase(user.name.first + ' ' + user.name.last)
     users.push(user)
   })
-  console.log('users.count = ' + users.length)
 })
 
+app.set('views', './views')
+//app.set('view engine', 'jade')
+app.engine('hbs', engines.handlebars)
+app.set('view engine', 'hbs')
+
 app.get('/', function(req, res) {
-  var buffer = ''
+  res.render('index', {users: users})
+})
 
-  users.forEach(function(user) {
-    buffer += '<a href = "' + user.username + '">' +  user.name.full + '</a><br>'
-  })
+app.get('/users/big*', function(req, res, next) {
+  console.log('Big User Access')
+  next()
+})
 
-  console.log("@@@@@@@@@@@@@" + buffer)
-  res.send(buffer)
+app.get('/users/:username', function(req, res) {
+  var username = req.params.username
+  res.send(username)
 })
 
 
