@@ -3,12 +3,13 @@
   "name": {
     "title": "miss",
     "first": "mary",
-    "last": "jones"
+    "last": "jones",
+    "full": "Mary Jones"
   },
   "location": {
-    "street": "4973 w 6th st",
-    "city": "milwaukee",
-    "state": "kansas",
+    "street": "4973 W 6 Th St",
+    "city": "Milwaukee",
+    "state": "China",
     "zip": "20779"
   },
   "email": "mary.jones56@example.com",
