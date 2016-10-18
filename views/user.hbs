@@ -66,6 +66,15 @@
         }
       })
     }
+
+    function del() {
+      $.ajax('/users/{{user.username}}', {
+        method: 'DELETE',
+        complete: function() {
+          location = '/'
+        }
+      })
+    }
   </script>
 </head>
 <body>
@@ -108,7 +117,7 @@
         <input class="edit" id="zip" type="text" value="{{address.zip}}">
       </div>
 
-      <div>
+      <div class="edit">
         <input type="submit" value="Save" onclick="save()">
         <input type="submit" value="Cancel" onclick="cancel()">
       </div>
