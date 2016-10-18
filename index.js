@@ -33,12 +33,23 @@ app.get('/', function(req, res) {
   })
 })
 
-app.get('/users/big*', function(req, res, next) {
-  console.log('Big User Access')
+app.all('/users/:username', function(req, res, next) {
+  console.log(req.method, 'for', req.params.username)
   next()
 })
 
-app.get('/users/:username', function(req, res) {
+app.get('/data/:username', function(req, res) {
+  var username = req.params.username
+  var user = getUser(username)
+  res.json(user)
+})
+
+// Should put before /users/:username, otherwise will be interupted by verifyUser()
+app.get('/users/*.json', function(req, res) {
+  res.download('./' + req.path)
+})
+
+app.get('/users/:username', verifyUser, function(req, res) {
   var username = req.params.username
   var user = getUser(username)
   res.render('user', {user: user, address: user.location})
@@ -58,9 +69,14 @@ app.delete('/users/:username', function(req, res) {
   res.sendStatus(200)
 })
 
+app.get('/not_found/:username', function(req, res) {
+  res.status(404).send('WHOOPS!!! No user named: ' + req.params.username)
+})
+
 var server = app.listen(3000, function() {
   console.log('Server running at http://localhost:' + server.address().port)
 })
+
 
 
 function getUserFilePath(username) {
@@ -82,4 +98,16 @@ function saveUser(username, user) {
   var filePath = getUserFilePath(username)
   fs.unlinkSync(filePath) //delete the file
   fs.writeFileSync(filePath, JSON.stringify(user, null, 2), {encoding: 'utf8'})
+}
+
+function verifyUser(req, res, next) {
+  var username = req.params.username
+  var fp = getUserFilePath(username)
+  fs.exists(fp, function(yes) {
+    if (yes) {
+      next()
+    } else {
+      res.redirect('/not_found/' + username)
+    }
+  })
 }

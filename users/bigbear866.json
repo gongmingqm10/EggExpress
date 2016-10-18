@@ -3,12 +3,13 @@
   "name": {
     "title": "mr",
     "first": "darryl",
-    "last": "hopkins"
+    "last": "hopkins",
+    "full": "Darryl Hopkins"
   },
   "location": {
-    "street": "2125 taylor st",
-    "city": "el paso",
-    "state": "arkansas",
+    "street": "2125 Taylor St",
+    "city": "El Paso1",
+    "state": "Arkansas",
     "zip": "65375"
   },
   "email": "darryl.hopkins33@example.com",
