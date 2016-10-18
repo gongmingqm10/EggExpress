@@ -46,10 +46,16 @@ function listUsers() {
   return users
 }
 
+function deleteUser(username) {
+  var fq = getUserFilePath(username)
+  fs.unlinkSync(fq)
+}
+
 module.exports = {
   getUserFilePath: getUserFilePath,
   getUser: getUser,
   saveUser: saveUser,
   verifyUser: verifyUser,
-  listUsers: listUsers
+  listUsers: listUsers,
+  deleteUser: deleteUser
 }
