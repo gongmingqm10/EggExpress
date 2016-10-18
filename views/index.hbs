@@ -8,7 +8,10 @@
   <h1>Handlebars</h1>
   <ul>
     {{#each users as |user|}}
-    <li><a href="/users/{{user.username}}">{{user.name.full}}</a></li>
+    <li>
+      <img src="/profilepics/{{user.username}}_sm.jpg" alt="">
+      <a href="/users/{{user.username}}">{{user.name.full}}</a>
+    </li>
     {{/each}}
   </ul>
 </body>

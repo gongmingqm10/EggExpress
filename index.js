@@ -15,9 +15,12 @@ fs.readFile('users.json', {encoding: 'utf8'}, function(err, data) {
 })
 
 app.set('views', './views')
+
 //app.set('view engine', 'jade')
 app.engine('hbs', engines.handlebars)
 app.set('view engine', 'hbs')
+
+app.use('/profilepics', express.static('images'))
 
 app.get('/', function(req, res) {
   res.render('index', {users: users})
@@ -30,7 +33,7 @@ app.get('/users/big*', function(req, res, next) {
 
 app.get('/users/:username', function(req, res) {
   var username = req.params.username
-  res.send(username)
+  res.render('user', {username: username})
 })
 
 
