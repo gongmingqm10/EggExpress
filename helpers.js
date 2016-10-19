@@ -1,6 +1,7 @@
 var fs = require('fs')
 var path = require('path')
 var _ = require('lodash')
+var User = require('./db')
 
 function getUserFilePath(username) {
   return path.join(__dirname, 'users', username + '.json')

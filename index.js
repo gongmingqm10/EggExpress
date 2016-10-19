@@ -1,10 +1,9 @@
-var fs = require('fs')
 var express = require('express')
 var engines = require('consolidate')
 var bodyParser = require('body-parser')
 
-var helpers = require('./helpers')
 var userRouter = require('./users')
+var User = require('./db').User
 
 var app = express()
 
@@ -20,13 +19,16 @@ app.use('/profilepics', express.static('images'))
 app.use('/users', userRouter)
 
 app.get('/', function(req, res) {
-  res.render('index', {users: helpers.listUsers()})
+  User.find({}, function(err, users) {
+    res.render('index', {users: users})
+  })
 })
 
 app.get('/data/:username', function(req, res) {
   var username = req.params.username
-  var readable = fs.createReadStream('./users/' + username + '.json')
-  readable.pipe(res)
+  User.findOne({username: username}, function(err, user) {
+    res.json(user)
+  })
 })
 
 app.get('/not_found/:username', function(req, res) {
