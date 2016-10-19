@@ -55,10 +55,13 @@
       $.ajax('/users/{{user.username}}', {
         method: 'PUT',
         data: {
-          street: $('#street').val(),
-          city: $('#city').val(),
-          state: $('#state').val(),
-          zip: $('#zip').val()
+          name: $('#name').val(),
+          location: {
+            street: $('#street').val(),
+            city: $('#city').val(),
+            state: $('#state').val(),
+            zip: $('#zip').val()
+          }
         },
         complete: function() {
           cancel();
@@ -92,6 +95,12 @@
 
     <div class="info">
       <h1>{{user.name.full}}</h1>
+
+      <div class="item">
+        <label>Name</label>
+        <span class="view">{{user.name.full}}</span>
+        <input class="edit" id="name" type="text" value="{{user.name.full}}">
+      </div>
 
       <div class="item">
         <label>Street</label>

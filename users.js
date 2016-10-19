@@ -8,11 +8,22 @@ router.all('/:username', function(req, res, next) {
   next()
 })
 
+router.get('/:username', function(req, res) {
+  var username = req.params.username
+  User.findOne({username: username}, function(err, user) {
+    res.render('user', {user: user, address: user.location})
+  })
+})
+
 router.put('/:username', function(req, res) {
   var username = req.params.username
 
-  User.findOneAndUpdate({username: username}, {location: req.body}, function(err, user) {
-    res.end()
+  User.findOne({username: username}, function(err, user) {
+    user.name.full = req.body.name
+    user.location = req.body.location
+    user.save(function() {
+      res.end()
+    })
   })
 })
 
